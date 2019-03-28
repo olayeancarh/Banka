@@ -1,0 +1,188 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main Styling */
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.7em;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  padding-bottom: 20px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+/* Utilities */
+.container {
+  margin: auto;
+  max-width: 1100px;
+  overflow: auto;
+}
+
+.lead {
+  font-size: 20px;
+  padding: 50px;
+}
+
+.btn {
+  display: inline-block;
+  font-size: 18px;
+  color: #ffffff;
+  background: #161c3d;
+  padding: 13px 20px;
+  border: 1px solid #6f7794;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.btn:hover {
+  background: #6f7794;
+  color: #ffffff;
+
+}
+
+.btn-primary{
+  background: #161c3d;
+  color: #ffffff;
+}
+
+.bg-dark {
+  background: #333333;
+  color: #ffffff;
+}
+
+.bg-light {
+  background: #f4f4f4;
+  color: #333333;
+}
+
+.bg-coral {
+  background: #691120;
+  color: #fff;
+}
+
+.clr {
+  clear: both;
+}
+
+.text-primary {
+  color: #691120;
+}
+
+/* Navbar */
+#navbar {
+  background: #161c3d;
+  color: #fff;
+  overflow: auto;
+}
+
+#navbar a {
+  color: #fff;
+}
+
+#navbar h1 {
+  float: left;
+  padding-top: 20px;
+}
+
+#navbar ul {
+  list-style: none;
+  float: right;
+}
+
+#navbar ul li {
+  float: left;
+}
+
+#navbar ul li a {
+  display: block;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+#navbar ul li a:hover {
+  background: #6f7794;
+  color: #ffffff;
+}
+
+/* Show Case */
+#showcase {
+  background: url('../img/bank.jpg') no-repeat center center/cover;
+  height: 685px;
+}
+
+#showcase .showcase-content {
+  color: #fff;
+  text-align: center;
+  padding-top: 170px
+}
+
+#showcase .showcase-content h1 {
+  font-size: 60px;
+  line-height:  1.2em;
+}
+
+#showcase .showcase-content p {
+  padding-bottom: 20px;
+  line-height:  1.2em;
+}
+
+
+/* Home Info */
+#home-info {
+  height: 400px;
+}
+
+#home-info .info-img {
+  float: left;
+  width: 50%;
+  background: url('../img/coin2.jpg') no-repeat center center/cover;
+  min-height: 100%;
+}
+
+#home-info .info-content {
+  float: right;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  padding: 50px 30px;
+}
+
+#home-info .info-content p{
+  padding-bottom: 30px; 
+}
+
+/* Features */
+.box {
+  float: left;
+  width: 33.3%;
+  padding: 50px;
+  text-align: center;
+}
+
+.box i {
+  margin-bottom: 10px;
+}
+
+/* Footer */
+#main-footer {
+  text-align: center;
+  background: #161c3d;
+  color: #fff;
+  padding: 20px;
+}
+
+
