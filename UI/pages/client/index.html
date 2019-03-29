@@ -21,7 +21,8 @@
             <li><a href="#">About</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#">Contact</a></li>
-            <li><input type="button" value="Log-out"></li>
+            <li><input type="button" id="createAccount" value="Create Account"></li>
+            <li><input type="button" id="logout" value="Log-out"></li>
           </ul>
       </div>
     </nav>
@@ -29,6 +30,62 @@
 
   
   <section class="" id="home-info">
+      
+      <table>
+          <h3>Account Transactions</h3>
+          <thead>
+            <tr>
+              <th>Trans. Date</th>
+              <th>Originating Branch</th>
+              <th>Debits</th>
+              <th>Credits</th>
+              <th>Balance</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="transBody">
+            <tr>
+              <td data-column="Trans. Date">2019-04-31</td>
+              <td data-column="Originating Branch">ATM</td>
+              <td data-column="Debits">5,000</td>
+              <td data-column="Credits"></td>
+              <td data-column="Balance">50,000</td>
+              <td data-column="Actions"><input type="button" class="btn bg-coral" value="View Trans."></td>
+            </tr>
+            <tr>
+                <td data-column="Trans. Date">2019-06-3</td>
+                <td data-column="Originating Branch">ATM</td>
+                <td data-column="Debits">5,000</td>
+                <td data-column="Credits"></td>
+                <td data-column="Balance">50,000</td>
+                <td data-column="Actions"><input type="button" class="btn bg-coral" value="View Trans."></td>
+            </tr>
+            <tr>
+                <td data-column="Trans. Date">2019-04-31</td>
+                <td data-column="Originating Branch">E-Branch</td>
+                <td data-column="Debits">5,000</td>
+                <td data-column="Credits"></td>
+                <td data-column="Balance">50,000</td>
+                <td data-column="Actions"><input type="button" class="btn bg-coral" value="View Trans."></td>
+            </tr>
+            <tr>
+                <td data-column="Trans. Date">2018-04-31</td>
+                <td data-column="Originating Branch">POS</td>
+                <td data-column="Debits">3,890</td>
+                <td data-column="Credits"></td>
+                <td data-column="Balance">67009</td>
+                <td data-column="Actions"><input type="button" class="btn bg-coral" value="View Trans."></td>
+            </tr>
+            <tr>
+                <td data-column="Trans. Date">2018-04-31</td>
+                <td data-column="Originating Branch">POS</td>
+                <td data-column="Debits">3,890</td>
+                <td data-column="Credits"></td>
+                <td data-column="Balance">67009</td>
+                <td data-column="Actions"><input type="button" class="btn bg-coral" value="View Trans."></td>
+            </tr>
+          </tbody>
+        </table>
     
   </section>
 
@@ -41,6 +98,19 @@
   <footer id="main-footer">
     <p>Banka &copy; 2019, All Rights Reserved</p>
   </footer>
-  
+
+  <div id="my-modal" class="modal">
+    <div class="modal-content" id="modCont">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2 id="modalHeader"></h2>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+    </div>
+  </div>
+  <script src="js/index.js"></script>
+  <script src="../../utilz/utilz.js"></script>
 </body>
 </html>
