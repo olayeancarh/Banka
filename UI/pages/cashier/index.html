@@ -21,17 +21,83 @@
             <li><a href="#">About</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#">Contact</a></li>
-            <li><input type="button" value="Log-out"></li>
+            <li><input type="button" id="logout" value="Log-out"></li>
           </ul>
       </div>
     </nav>
   </header>
 
-  <div class="clr"></div>
+  <section class="" id="home-info">
+      
+      <table>
+          <h3>Account Transactions</h3>
+          <thead>
+            <tr>
+              <th>Trans. Date</th>
+              <th>Originating Branch</th>
+              <th>Debits</th>
+              <th>Credits</th>
+              <th>Balance</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="transBody">
+            <tr>
+              <td data-column="S/N"></td>
+              <td data-column="Name">2019-04-31</td>
+              <td data-column="Email">ATM</td>
+              <td data-column="Phone Number">5,000</td>
+              <td data-column="Balance"></td>>
+              <td data-column="Actions"><input type="button" class="btn bg-green" value="Credit">
+                  <input type="button" class="btn bg-coral" class="btn bg-red" value="Debit"></td>
+            </tr>
+            <tr>
+              <td data-column="S/N"></td>
+                <td data-column="Name">2019-06-3</td>
+                <td data-column="Email">ATM</td>
+                <td data-column="Phone Number">5,000</td>
+                <td data-column="Balance"></td>>
+                <td data-column="Actions"><input type="button" class="btn bg-green" value="Credit">
+                    <input type="button" class="btn bg-coral" class="btn bg-red" value="Debit"></td>
+            </tr>
+            <tr>
+              <td data-column="S/N"></td>
+                <td data-column="Name">2019-04-31</td>
+                <td data-column="Email">E-Branch</td>
+                <td data-column="Phone Number">5,000</td>
+                <td data-column="Balance"></td>>
+                <td data-column="Actions"><input type="button" class="btn bg-green" value="Credit">
+                    <input type="button" class="btn bg-coral" class="btn bg-red" value="Debit"></td>
+            </tr>
+            <tr>
+              <td data-column="S/N"></td>
+                <td data-column="Name">2018-04-31</td>
+                <td data-column="Email">POS</td>
+                <td data-column="Phone Number">3,890</td>
+                <td data-column="Balance"></td>
+                <td data-column="Actions"><input type="button" class="btn bg-green" value="Credit">
+                    <input type="button" class="btn bg-coral" class="btn bg-red" value="Debit"></td>
+            </tr>
+            <tr>
+              <td data-column="S/N"></td>
+                <td data-column="Name">2018-04-31</td>
+                <td data-column="Email">POS</td>
+                <td data-column="Phone Number">3,890</td>
+                <td data-column="Balance"></td>
+                <td data-column="Actions"><input type="button" class="btn bg-green" value="Credit">
+                    <input type="button" class="btn bg-coral" class="btn bg-red" value="Debit"></td>
+            </tr>
+          </tbody>
+        </table>
+    
+  </section>
+
+  <div class="clr close"></div>
 
   <footer id="main-footer">
     <p>Banka &copy; 2019, All Rights Reserved</p>
   </footer>
-  
+  <script src="js/index.js"></script>
+  <script src="../../utilz/utilz.js"></script>
 </body>
 </html>
