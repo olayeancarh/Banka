@@ -75,6 +75,16 @@ p {
   color: #fff;
 }
 
+.bg-green {
+  background: #1eaa0c; 
+  color: #fff;
+}
+
+.bg-red {
+  background: #db0606;
+  color: #fff;
+}
+
 .clr {
   clear: both;
 }
