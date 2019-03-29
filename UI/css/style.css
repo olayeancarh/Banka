@@ -113,6 +113,21 @@ p {
   text-align: center;
 }
 
+#navbar ul li input {
+  padding: 10px 15px;
+  margin: 18px 18px;
+  background: #691120;
+  color: #fff;
+  border: #691120 1px solid;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+#navbar ul li input:hover {
+  background: #fff;
+  color: #691120;
+}
+
 #navbar ul li a:hover {
   background: #6f7794;
   color: #ffffff;
@@ -180,9 +195,13 @@ p {
 /* Footer */
 #main-footer {
   text-align: center;
+  position: absolute;
   background: #161c3d;
   color: #fff;
   padding: 20px;
+  bottom: 0px;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* Modal */

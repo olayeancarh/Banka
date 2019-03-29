@@ -8,7 +8,9 @@ const signUpBtn = document.querySelector('#sign-up');
 closeBtn.addEventListener('click', closeModal);
 signInBtn.addEventListener('click', () => openModal('Login', 'modal-sm'));
 signUpBtn.addEventListener('click', () => openModal('Register', 'modal-sm'));
+modal.addEventListener('click', logOrSignOut);
 window.addEventListener('click', outsideClick);
+
 
 // Open
 function openModal(header, modalSize) {
@@ -27,7 +29,7 @@ function openModal(header, modalSize) {
           <label for="password">Password</label>
           <input type="text" id="password" name="passWord">
         </div>
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn login">Login</button>
       </form>
     `;
   } else {
@@ -58,7 +60,7 @@ function openModal(header, modalSize) {
         <input type="password2" id="password2" name="passWord2">
       </div>
       
-      <button type="submit" class="btn">Sign Up</button>
+      <button type="submit" class="btn signup">Sign Up</button>
     </form>
   `;
   }
@@ -74,4 +76,31 @@ function outsideClick(e) {
   if (e.target == modal) {
     modal.style.display = 'none';
   }
+}
+
+function logOrSignOut(e) {
+  if(e.target.classList.contains('login')){
+    const username = document.querySelector('#username').value,
+          password = document.querySelector('#password').value;
+    if(username) {
+      switch (username) {
+        case 'admin':
+          password ? location.href = './pages/admin' : alert('please input password');
+          break;
+        case 'client':
+          password ? location.href = './pages/client' : alert('please input password');
+          break;
+        case 'cashier':
+          password ? location.href = './pages/cashier' : alert('please input password');
+          break;
+      
+        default:
+          break;
+      }
+    } else {
+      alert('Please ensure to fill both username and password');
+    }
+  }
+  console.log(e.target.classList);
+  e.preventDefault();
 }
