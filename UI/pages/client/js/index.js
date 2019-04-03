@@ -6,7 +6,7 @@ const transBtn = document.querySelector('#transBody');
 // Events
 createAccount.addEventListener('click', () => openModal('Create Account', 'modal-sm'));
 window.addEventListener('click', outsideClick);
-transBtn.addEventListener('click', openTransModal);
+transBtn.addEventListener('click', openTransModal); 
 
 // Open
 function openModal(header, modalSize) {
@@ -46,7 +46,7 @@ function openModal(header, modalSize) {
         <input type="text" id="email" name="Email">
       </div>
       
-      <button type="submit" class="btn signup">Sign Up</button>
+      <button type="submit" class="btn signup">Create Account</button>
     </form>`;
   }
 }
@@ -109,5 +109,4 @@ function openTransModal(e) {
       <p>Balance: <strong>${tableRow1[4].innerText}</strong></p>
     `;
   }
-  // tableRow1.forEach(abc => console.log(abc))
 }

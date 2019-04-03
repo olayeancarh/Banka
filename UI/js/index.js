@@ -27,7 +27,7 @@ function openModal(header, modalSize) {
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="text" id="password" name="passWord">
+          <input type="password" id="password" name="passWord">
         </div>
         <button type="submit" class="btn login">Login</button>
       </form>
@@ -53,11 +53,11 @@ function openModal(header, modalSize) {
       </div>
       <div class="form-group">
         <label for="password1">Password</label>
-        <input type="password1" id="password1" name="passWord1">
+        <input type="password" id="password1" name="passWord1">
       </div>
       <div class="form-group">
         <label for="password2">Confirm Password</label>
-        <input type="password2" id="password2" name="passWord2">
+        <input type="password" id="password2" name="passWord2">
       </div>
       
       <button type="submit" class="btn signup">Sign Up</button>
@@ -101,6 +101,5 @@ function logOrSignOut(e) {
       alert('Please ensure to fill both username and password');
     }
   }
-  console.log(e.target.classList);
   e.preventDefault();
 }
