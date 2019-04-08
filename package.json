@@ -23,7 +23,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/index.js",
+    "start": "node ./build/index.js",
     "start:dev": "nodemon --exec babel-node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -39,5 +39,9 @@
   "bugs": {
     "url": "https://github.com/olayeancarh/Banka/issues"
   },
-  "homepage": "https://github.com/olayeancarh/Banka#readme"
+  "homepage": "https://github.com/olayeancarh/Banka#readme",
+  "engines": {
+    "node": "10.15.1",
+    "npm": "6.4.1"
+  }
 }
