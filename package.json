@@ -39,5 +39,9 @@
   "bugs": {
     "url": "https://github.com/olayeancarh/Banka/issues"
   },
-  "homepage": "https://github.com/olayeancarh/Banka#readme"
+  "homepage": "https://github.com/olayeancarh/Banka#readme",
+  "engines": {
+    "node": "10.15.1",
+    "npm": "6.4.1"
+  }
 }
