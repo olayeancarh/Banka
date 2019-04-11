@@ -19,7 +19,7 @@ export default {
       isAdmin: 'false',
     },
     {
-      id: 1,
+      id: 3,
       email: 'ola.wale@gmail.com',
       firstName: 'Olamide',
       lastName: 'Olawale',
@@ -28,7 +28,7 @@ export default {
       isAdmin: 'false',
     },
     {
-      id: 1,
+      id: 4,
       email: 'nnamdi.eze@yahoo.com',
       firstName: 'Nnamdi',
       lastName: 'Ezedigbo',

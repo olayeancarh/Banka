@@ -77,7 +77,7 @@ describe('Accounts', () => {
 
   // Test to update account
   it('should update account', (done) => {
-    const id = 1;
+    const accountNumber = '0019898982';
     const account = {
       accountNumber: '0019898982',
       createdOn: 'Mon Feb 18 2019 09:15:03',
@@ -87,7 +87,7 @@ describe('Accounts', () => {
       balance: 46888.09,
     };
     chai.request(app)
-      .put(`/api/v1/accounts/${id}`)
+      .put(`/api/v1/accounts/${accountNumber}`)
       .send(account)
       .end((err, res) => {
         res.should.have.status(200);

@@ -1,4 +1,5 @@
 import AccountService from '../services/account.service';
+import dummyData from '../utilz/dummyData';
 
 const AccountController = {
   addAnAccount(req, res) {
@@ -12,8 +13,15 @@ const AccountController = {
 
   updateAnAccount(req, res) {
     const oldAccount = req.body;
-    const { id } = req.params;
-    const updatedAccount = AccountService.updateAnAccount(oldAccount, id);
+    const { accountNumber } = req.params;
+    const accountInDb = dummyData.accounts.find(acc => acc.accountNumber === accountNumber);
+    if (!accountInDb) {
+      return res.json({
+        status: 401,
+        data: 'The account number does not exist',
+      });
+    }
+    const updatedAccount = AccountService.updateAnAccount(oldAccount, accountNumber);
     return res.json({
       status: 201,
       data: updatedAccount,
@@ -21,8 +29,8 @@ const AccountController = {
   },
 
   deleteAnAccount(req, res) {
-    const { id } = req.params.id;
-    AccountService.deleteAnAccount(id);
+    const { accountNumber } = req.params;
+    AccountService.deleteAnAccount(accountNumber);
     return res.json({
       status: 201,
       message: 'Account successfully deleted',
