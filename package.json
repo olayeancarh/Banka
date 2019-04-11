@@ -33,7 +33,8 @@
     "build": "npm run clean && npm run build-babel",
     "start": "node ./build/index.js",
     "start:dev": "nodemon --exec babel-node ./src/index.js",
-    "test": "nyc --require @babel/register _mocha ./src/api/test/test.js --timeout 15000 --exit"
+    "test": "nyc --require @babel/register _mocha ./src/api/test/test.js --timeout 15000 --exit",
+    "coverage": "cross-env NODE_ENV=test nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
