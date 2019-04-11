@@ -14,8 +14,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // Controller
 var router = (0, _express.Router)();
 router.post('/', _account["default"].addAnAccount);
-router.put('/:id', _account["default"].updateAnAccount);
-router["delete"]('/delete/:id', _account["default"].deleteAnAccount);
+router.put('/:accountNumber', _account["default"].updateAnAccount);
+router["delete"]('/delete/:accountNumber', _account["default"].deleteAnAccount);
 var _default = router;
 exports["default"] = _default;
 //# sourceMappingURL=account.route.js.map

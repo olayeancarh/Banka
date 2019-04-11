@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _account = _interopRequireDefault(require("../services/account.service"));
 
+var _dummyData = _interopRequireDefault(require("../utilz/dummyData"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var AccountController = {
@@ -22,9 +24,20 @@ var AccountController = {
   },
   updateAnAccount: function updateAnAccount(req, res) {
     var oldAccount = req.body;
-    var id = req.params.id;
+    var accountNumber = req.params.accountNumber;
 
-    var updatedAccount = _account["default"].updateAnAccount(oldAccount, id);
+    var accountInDb = _dummyData["default"].accounts.find(function (acc) {
+      return acc.accountNumber === accountNumber;
+    });
+
+    if (!accountInDb) {
+      return res.json({
+        status: 401,
+        data: 'The account number does not exist'
+      });
+    }
+
+    var updatedAccount = _account["default"].updateAnAccount(oldAccount, accountNumber);
 
     return res.json({
       status: 201,
@@ -32,9 +45,9 @@ var AccountController = {
     }).status(201);
   },
   deleteAnAccount: function deleteAnAccount(req, res) {
-    var id = req.params.id.id;
+    var accountNumber = req.params.accountNumber;
 
-    _account["default"].deleteAnAccount(id);
+    _account["default"].deleteAnAccount(accountNumber);
 
     return res.json({
       status: 201,

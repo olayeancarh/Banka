@@ -17,13 +17,9 @@ var _user = _interopRequireDefault(require("./api/routes/user.route"));
 
 var _account = _interopRequireDefault(require("./api/routes/account.route"));
 
-var _transaction = _interopRequireDefault(
-  require("./api/routes/transaction.route")
-);
+var _transaction = _interopRequireDefault(require("./api/routes/transaction.route"));
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable no-console */
 // Routes
@@ -33,25 +29,23 @@ var port = process.env.PORT || 5000;
 
 var server = _http["default"].createServer(app);
 
-app.use((0, _morgan["default"])("dev"));
+app.use((0, _morgan["default"])('dev'));
 app.use(_bodyParser["default"].json());
-app.use(
-  _bodyParser["default"].urlencoded({
-    extended: false
-  })
-); // users handler
+app.use(_bodyParser["default"].urlencoded({
+  extended: false
+})); // users handler
 
-app.use("/api/v1/users", _user["default"]); // accounts handler
+app.use('/api/v1/users', _user["default"]); // accounts handler
 
-app.use("/api/v1/accounts", _account["default"]); // transactions handler
+app.use('/api/v1/accounts', _account["default"]); // transactions handler
 
-app.use("/api/v1/transactions", _transaction["default"]);
-app.get("*", function(req, res) {
+app.use('/api/v1/transactions', _transaction["default"]);
+app.get('*', function (req, res) {
   return res.status(200).send({
-    message: "Welcome to Banka"
+    message: 'Welcome to Banka'
   });
 });
-server.listen(port, function() {
+server.listen(port, function () {
   console.log("Server running at ".concat(port));
 });
 var _default = app;

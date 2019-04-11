@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 // Controller
 var router = (0, _express.Router)();
-router.post('/', _transaction["default"].addATransaction);
+router.post('/:accountNumber', _transaction["default"].addATransaction);
 var _default = router;
 exports["default"] = _default;
 //# sourceMappingURL=transaction.route.js.map

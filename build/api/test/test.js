@@ -39,15 +39,13 @@ describe('Transactions', function () {
   it('should create a transaction', function (done) {
     var transaction = {
       createdOn: 'Mon Feb 18 2019 09:15:03',
-      type: 'debit',
+      type: 'credit',
       accountNumber: '0019898982',
       cashier: 2,
-      amount: 10000.00,
-      oldBalance: 46888.09,
-      newBalance: 36888.09
+      amount: 10000.00
     };
 
-    _chai["default"].request(_index["default"]).post('/api/v1/transactions').send(transaction).end(function (err, res) {
+    _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982').send(transaction).end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('object');
       done();
@@ -74,7 +72,7 @@ describe('Accounts', function () {
   }); // Test to update account
 
   it('should update account', function (done) {
-    var id = 1;
+    var accountNumber = '0019898982';
     var account = {
       accountNumber: '0019898982',
       createdOn: 'Mon Feb 18 2019 09:15:03',
@@ -84,7 +82,7 @@ describe('Accounts', function () {
       balance: 46888.09
     };
 
-    _chai["default"].request(_index["default"]).put("/api/v1/accounts/".concat(id)).send(account).end(function (err, res) {
+    _chai["default"].request(_index["default"]).put("/api/v1/accounts/".concat(accountNumber)).send(account).end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('object'); // res.body.should.have.property('message');
 
