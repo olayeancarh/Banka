@@ -83,7 +83,6 @@ function logOrSignOut(e) {
       alert('Please ensure to fill both username and password');
     }
   }
-  console.log(e.target.classList);
   e.preventDefault();
 }
 

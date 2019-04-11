@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/olayeancarh/Banka.svg?branch=master)](https://travis-ci.com/olayeancarh/Banka)
+[![Coverage Status](https://coveralls.io/repos/github/olayeancarh/Banka/badge.svg?branch=master)](https://coveralls.io/github/olayeancarh/Banka?branch=master)
+
 # alc_banka
 A simple banking application
 
