@@ -13,7 +13,6 @@ const AccountController = {
   updateAnAccount(req, res) {
     const oldAccount = req.body;
     const { id } = req.params;
-    console.log(oldAccount);
     const updatedAccount = AccountService.updateAnAccount(oldAccount, id);
     return res.json({
       status: 201,
