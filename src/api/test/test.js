@@ -36,15 +36,13 @@ describe('Transactions', () => {
   it('should create a transaction', (done) => {
     const transaction = {
       createdOn: 'Mon Feb 18 2019 09:15:03',
-      type: 'debit',
+      type: 'credit',
       accountNumber: '0019898982',
       cashier: 2,
       amount: 10000.00,
-      oldBalance: 46888.09,
-      newBalance: 36888.09,
     };
     chai.request(app)
-      .post('/api/v1/transactions')
+      .post('/api/v1/transactions/0019898982')
       .send(transaction)
       .end((err, res) => {
         res.should.have.status(200);
