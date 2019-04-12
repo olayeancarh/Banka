@@ -29,6 +29,21 @@ describe('Users', () => {
         done();
       });
   });
+  // Test to sign up user
+  it('should sign in user', (done) => {
+    const user = {
+      email: 'ola1.wale@gmail.com',
+      password: 'golden',
+    };
+    chai.request(app)
+      .post('/api/v1/users/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
 });
 
 describe('Transactions', () => {
