@@ -36,6 +36,15 @@ export default {
       type: 'staff',
       isAdmin: 'true',
     },
+    {
+      email: 'ola1.wale@gmail.com',
+      firstName: 'Olamide',
+      lastName: 'Olawale',
+      password: '$2b$10$HGLq1nJe8FaIpGcElhyhF.m67NGHOL8sN5GEgcKvt.anrdQKF6HIO',
+      type: 'staff',
+      isAdmin: false,
+      id: 5,
+    },
   ],
   accounts: [
     {
