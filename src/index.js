@@ -9,6 +9,8 @@ import userRoutes from './api/routes/user.route';
 import accountRoutes from './api/routes/account.route';
 import transactionRoutes from './api/routes/transaction.route';
 
+import middleware from './api/utilz/middleware';
+
 const app = express();
 
 // const hostname = '127.0.0.1';
@@ -26,10 +28,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1/users', userRoutes);
 
 // accounts handler
-app.use('/api/v1/accounts', accountRoutes);
+app.use('/api/v1/accounts', middleware.checkToken, accountRoutes);
 
 // transactions handler
-app.use('/api/v1/transactions', transactionRoutes);
+app.use('/api/v1/transactions', middleware.checkToken, transactionRoutes);
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Banka',
