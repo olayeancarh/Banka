@@ -27,7 +27,20 @@ describe('Users', function () {
       isAdmin: 'false'
     };
 
-    _chai["default"].request(_index["default"]).post('/api/v1/users').send(user).end(function (err, res) {
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signup').send(user).end(function (err, res) {
+      res.should.have.status(200);
+      res.body.should.be.a('object');
+      done();
+    });
+  }); // Test to sign up user
+
+  it('should sign in user', function (done) {
+    var user = {
+      email: 'ola1.wale@gmail.com',
+      password: 'golden'
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('object');
       done();
@@ -35,8 +48,8 @@ describe('Users', function () {
   });
 });
 describe('Transactions', function () {
-  // Test to create a transaction
-  it('should create a transaction', function (done) {
+  // Test to credit a user account
+  it('should credit a user account', function (done) {
     var transaction = {
       createdOn: 'Mon Feb 18 2019 09:15:03',
       type: 'credit',
@@ -45,7 +58,23 @@ describe('Transactions', function () {
       amount: 10000.00
     };
 
-    _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982').send(transaction).end(function (err, res) {
+    _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982/credit').send(transaction).end(function (err, res) {
+      res.should.have.status(200);
+      res.body.should.be.a('object');
+      done();
+    });
+  }); // Test to debit a user account
+
+  it('should debit a user account', function (done) {
+    var transaction = {
+      createdOn: 'Mon Feb 18 2019 09:15:03',
+      type: 'debit',
+      accountNumber: '0019898982',
+      cashier: 2,
+      amount: 10000.00
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982/debit').send(transaction).end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('object');
       done();
@@ -93,7 +122,7 @@ describe('Accounts', function () {
   it('should delete account', function (done) {
     var id = 2;
 
-    _chai["default"].request(_index["default"])["delete"]("/api/v1/accounts/delete/".concat(id)).end(function (err, res) {
+    _chai["default"].request(_index["default"])["delete"]("/api/v1/accounts/".concat(id)).end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('object'); // res.body.should.have.property('message');
 
