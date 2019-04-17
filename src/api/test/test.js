@@ -21,7 +21,7 @@ describe('Users', () => {
       isAdmin: 'false',
     };
     chai.request(app)
-      .post('/api/v1/users')
+      .post('/api/v1/users/auth/signup')
       .send(user)
       .end((err, res) => {
         res.should.have.status(200);
@@ -47,8 +47,8 @@ describe('Users', () => {
 });
 
 describe('Transactions', () => {
-  // Test to create a transaction
-  it('should create a transaction', (done) => {
+  // Test to credit a user account
+  it('should credit a user account', (done) => {
     const transaction = {
       createdOn: 'Mon Feb 18 2019 09:15:03',
       type: 'credit',
@@ -57,7 +57,26 @@ describe('Transactions', () => {
       amount: 10000.00,
     };
     chai.request(app)
-      .post('/api/v1/transactions/0019898982')
+      .post('/api/v1/transactions/0019898982/credit')
+      .send(transaction)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  // Test to debit a user account
+  it('should debit a user account', (done) => {
+    const transaction = {
+      createdOn: 'Mon Feb 18 2019 09:15:03',
+      type: 'debit',
+      accountNumber: '0019898982',
+      cashier: 2,
+      amount: 10000.00,
+    };
+    chai.request(app)
+      .post('/api/v1/transactions/0019898982/debit')
       .send(transaction)
       .end((err, res) => {
         res.should.have.status(200);
@@ -114,7 +133,7 @@ describe('Accounts', () => {
   it('should delete account', (done) => {
     const id = 2;
     chai.request(app)
-      .delete(`/api/v1/accounts/delete/${id}`)
+      .delete(`/api/v1/accounts/${id}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');

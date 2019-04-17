@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
 /* eslint-disable radix */
 import dummyData from '../utilz/dummyData';
+import Account from '../models/account.models';
 
-const AccountService = {
-  addNewAccount(account) {
+class AccountService {
+  static addNewAccount(account) {
     const accountObj = account;
     const accountLenght = dummyData.accounts.length;
     const accountOwner = dummyData.users.find(user => user.id === accountObj.owner);
@@ -13,9 +14,9 @@ const AccountService = {
     accountObj.email = accountOwner.email;
     dummyData.accounts.push(accountObj);
     return accountObj;
-  },
+  }
 
-  updateAnAccount(account, accountNumber) {
+  static updateAnAccount(account, accountNumber) {
     const accountObj = account;
     const accountInDb = dummyData.accounts.find(acc => acc.accountNumber === accountObj.accountNumber);
     const accountObjIndex = dummyData.accounts.findIndex(accounts => accounts.accountNumber === accountNumber);
@@ -35,12 +36,22 @@ const AccountService = {
     updatedAcct.accountNumber = accountNumber;
     dummyData.accounts[accountObjIndex] = updatedAcct;
     return updatedAcct;
-  },
+  }
 
-  deleteAnAccount(accountNumber) {
+  static deleteAnAccount(accountNumber) {
     const getAccountIndex = dummyData.accounts.findIndex(account => account.accountNumber === accountNumber);
     dummyData.accounts.splice(getAccountIndex, 1);
-  },
-};
+  }
+
+  static fetchAllAccounts() {
+    return dummyData.accounts
+      .map(account => new Account(account.id, account.accountNumber, account.createdOn, account.owner, account.type, account.status, account.balance));
+  }
+
+  static fetchAnAccount(accountNumber) {
+    return dummyData.accounts
+      .find(account => account.accountNumber === accountNumber);
+  }
+}
 
 export default AccountService;

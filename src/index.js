@@ -5,15 +5,9 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 
 // Routes
-import userRoutes from './api/routes/user.route';
-import accountRoutes from './api/routes/account.route';
-import transactionRoutes from './api/routes/transaction.route';
-
-import middleware from './api/utilz/middleware';
+import routes from './api/routes/index';
 
 const app = express();
-
-// const hostname = '127.0.0.1';
 
 const port = process.env.PORT || 5000;
 
@@ -25,13 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // users handler
-app.use('/api/v1/users', userRoutes);
-
-// accounts handler
-app.use('/api/v1/accounts', middleware.checkToken, accountRoutes);
-
-// transactions handler
-app.use('/api/v1/transactions', middleware.checkToken, transactionRoutes);
+app.use('/api/v1', routes);
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Banka',

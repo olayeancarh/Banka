@@ -5,8 +5,8 @@ import UserService from '../services/user.service';
 import dummyData from '../utilz/dummyData';
 import config from '../utilz/config';
 
-const UserController = {
-  addAUser(req, res) {
+class UserController {
+  static addAUser(req, res) {
     const newUser = req.body;
     const emailExists = dummyData.users.find(users => users.email === newUser.email);
     const saltRounds = 10;
@@ -25,14 +25,15 @@ const UserController = {
     bcrypt.hash(newUser.password, saltRounds, (err, hash) => {
       newUser.password = hash;
       const createdUser = UserService.addNewUser(newUser);
-      createdUser.password = '';
+      // createdUser.password = '';
       return res.json({
         status: 201,
         data: createdUser,
       });
     });
-  },
-  userLogin(req, res) {
+  }
+
+  static userLogin(req, res) {
     // let myToken;
     const {
       email, password,
@@ -60,7 +61,7 @@ const UserController = {
         });
       });
     });
-  },
-};
+  }
+}
 
 export default UserController;
