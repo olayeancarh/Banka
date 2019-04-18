@@ -23,7 +23,7 @@ h1, h2, h3 {
 }
 
 p {
-  margin: 10px 0;
+  margin: 10px 0; 
 }
 
 /* Utilities */
@@ -44,10 +44,15 @@ p {
   font-size: 18px;
   color: #ffffff;
   background: #161c3d;
-  padding: 13px 20px;
+  padding: 13px 50px;
+  margin-left: 15px;
   border: 1px solid #6f7794;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.btn1 {
+  width: 30%;
 }
 
 .btn:hover {

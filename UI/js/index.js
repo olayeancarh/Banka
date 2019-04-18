@@ -1,13 +1,16 @@
+/* eslint-disable no-undef */
 // Get DOM Elements
 const modal = document.querySelector('#my-modal');
 const closeBtn = document.querySelector('.close');
 const signInBtn = document.querySelector('#sign-in');
 const signUpBtn = document.querySelector('#sign-up');
+const adminSignUpBtn = document.querySelector('#admin-sign-up');
 
 // Events
 closeBtn.addEventListener('click', closeModal);
 signInBtn.addEventListener('click', () => openModal('Login', 'modal-sm'));
 signUpBtn.addEventListener('click', () => openModal('Register', 'modal-sm'));
+adminSignUpBtn.addEventListener('click', () => openModal('Admin Sign-Up', 'modal-sm'));
 modal.addEventListener('click', logOrSignOut);
 window.addEventListener('click', outsideClick);
 
@@ -18,7 +21,7 @@ function openModal(header, modalSize) {
   modal.style.display = 'block';
   document.getElementById('modalHeader').innerHTML = header;
   document.getElementById('modCont').classList.add(modalSize);
-  if(header == 'Login') {
+  if (header == 'Login') {
     document.querySelector('.modal-body').innerHTML = `
       <form action="">
         <div class="form-group">
