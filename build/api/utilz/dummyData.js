@@ -10,7 +10,7 @@ var _default = {
     email: 'lawal.bello@yahoo.com',
     firstName: 'Lawal',
     lastName: 'Bello',
-    password: 'golden',
+    password: '$2b$10$HGLq1nJe8FaIpGcElhyhF.m67NGHOL8sN5GEgcKvt.anrdQKF6HIO',
     type: 'client',
     isAdmin: 'false'
   }, {

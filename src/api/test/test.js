@@ -47,17 +47,28 @@ describe('Users', () => {
 });
 
 describe('Transactions', () => {
+  let token;
+
+  before((done) => {
+    chai.request(app)
+      .post('/api/v1/users/auth/signin')
+      .send({ email: 'ola1.wale@gmail.com', password: 'golden' })
+      .end((err, res) => {
+        ({ token } = res.body.data);
+        done();
+      });
+  });
   // Test to credit a user account
   it('should credit a user account', (done) => {
     const transaction = {
       createdOn: 'Mon Feb 18 2019 09:15:03',
-      type: 'credit',
       accountNumber: '0019898982',
       cashier: 2,
       amount: 10000.00,
     };
     chai.request(app)
       .post('/api/v1/transactions/0019898982/credit')
+      .set('Authorization', `Bearer ${token}`)
       .send(transaction)
       .end((err, res) => {
         res.should.have.status(200);
@@ -70,14 +81,26 @@ describe('Transactions', () => {
   it('should debit a user account', (done) => {
     const transaction = {
       createdOn: 'Mon Feb 18 2019 09:15:03',
-      type: 'debit',
       accountNumber: '0019898982',
       cashier: 2,
       amount: 10000.00,
     };
     chai.request(app)
       .post('/api/v1/transactions/0019898982/debit')
+      .set('Authorization', `Bearer ${token}`)
       .send(transaction)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  // Test to fetch all transactions
+  it('should get all transaction', (done) => {
+    chai.request(app)
+      .get('/api/v1/transactions')
+      .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -87,6 +110,17 @@ describe('Transactions', () => {
 });
 
 describe('Accounts', () => {
+  let token;
+
+  before((done) => {
+    chai.request(app)
+      .post('/api/v1/users/auth/signin')
+      .send({ email: 'ola1.wale@gmail.com', password: 'golden' })
+      .end((err, res) => {
+        ({ token } = res.body.data);
+        done();
+      });
+  });
   // Test to create an account
   it('should create an account', (done) => {
     const account = {
@@ -99,6 +133,7 @@ describe('Accounts', () => {
     };
     chai.request(app)
       .post('/api/v1/accounts')
+      .set('Authorization', `Bearer ${token}`)
       .send(account)
       .end((err, res) => {
         res.should.have.status(200);
@@ -120,6 +155,7 @@ describe('Accounts', () => {
     };
     chai.request(app)
       .put(`/api/v1/accounts/${accountNumber}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(account)
       .end((err, res) => {
         res.should.have.status(200);
@@ -131,13 +167,38 @@ describe('Accounts', () => {
 
   // Test to delete account
   it('should delete account', (done) => {
-    const id = 2;
+    const accountNumber = '0019898982';
     chai.request(app)
-      .delete(`/api/v1/accounts/${id}`)
+      .delete(`/api/v1/accounts/${accountNumber}`)
+      .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         // res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  // Test to fetch all accounts
+  it('should get all accounts', (done) => {
+    chai.request(app)
+      .get('/api/v1/accounts')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  // Test to fetch an account
+  it('should get an account', (done) => {
+    chai.request(app)
+      .get('/api/v1/accounts/0019898982')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
         done();
       });
   });
