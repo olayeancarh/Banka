@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/olayeancarh/Banka.svg?branch=develop)](https://travis-ci.com/olayeancarh/Banka)
 [![Coverage Status](https://coveralls.io/repos/github/olayeancarh/Banka/badge.svg?branch=develop)](https://coveralls.io/github/olayeancarh/Banka?branch=develop)
 
 # alc_banka
