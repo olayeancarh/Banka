@@ -1,6 +1,6 @@
 # Banka  &middot;
 [![Build Status](https://travis-ci.com/olayeancarh/Banka.svg?branch=develop)](https://travis-ci.com/olayeancarh/Banka)
-[![Coverage Status](https://coveralls.io/repos/github/olayeancarh/Banka/badge.svg?branch=develop)](https://coveralls.io/github/olayeancarh/Banka?branch=develop)
+<a href='https://coveralls.io/github/olayeancarh/Banka'><img src='https://coveralls.io/repos/github/olayeancarh/Banka/badge.svg' alt='Coverage Status' /></a>
 
 > Banka is a light-weight core banking application that powers banking operations like account
 creation, customer deposit and withdrawals. This app is meant to support a single bank, where
