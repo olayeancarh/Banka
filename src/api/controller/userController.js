@@ -46,10 +46,11 @@ class UserController {
       email, password,
     } = req.body;
     const emailExists = dummyData.users.find(user => user.email === email);
-    if (!emailExists) {
+    if (!emailExists || !validator.validate(email)) {
+      const data = emailExists ? 'Invalid email' : 'Authentication failed';
       return res.status(404).json({
         status: 404,
-        data: 'Authentication failed',
+        data,
       });
     }
     bcrypt.compare(password, emailExists.password).then((resp) => {
@@ -61,7 +62,6 @@ class UserController {
       }
       jwt.sign({ email }, config.secret, (err, token) => {
         emailExists.token = token;
-        emailExists.password = '';
         return res.json({
           status: 201,
           data: emailExists,
