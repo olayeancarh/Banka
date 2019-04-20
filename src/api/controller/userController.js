@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import validator from 'email-validator';
 import UserService from '../services/user.service';
 import dummyData from '../utilz/dummyData';
 import config from '../utilz/config';
@@ -10,16 +11,22 @@ class UserController {
     const newUser = req.body;
     const emailExists = dummyData.users.find(users => users.email === newUser.email);
     const saltRounds = 10;
+    if ([newUser.email, newUser.firstName, newUser.lastName, newUser.password, newUser.type, newUser.isAdmin].includes('')) {
+      return res.status(401).json({
+        status: 401,
+        data: 'All fields are required',
+      });
+    }
     if (emailExists) {
-      return res.json({
+      return res.status(401).json({
         status: 401,
         data: 'This email is associated with a Banka account',
       });
     }
-    if ([newUser.email, newUser.firstName, newUser.lastName, newUser.password].includes('')) {
-      return res.json({
+    if (!validator.validate(newUser.email)) {
+      return res.status(401).json({
         status: 401,
-        data: 'All fields are required',
+        data: 'Invalid Email',
       });
     }
     bcrypt.hash(newUser.password, saltRounds, (err, hash) => {
@@ -39,10 +46,11 @@ class UserController {
       email, password,
     } = req.body;
     const emailExists = dummyData.users.find(user => user.email === email);
-    if (!emailExists) {
-      return res.json({
+    if (!emailExists || !validator.validate(email)) {
+      const data = emailExists ? 'Invalid email' : 'Authentication failed';
+      return res.status(404).json({
         status: 404,
-        data: 'Authentication failed',
+        data,
       });
     }
     bcrypt.compare(password, emailExists.password).then((resp) => {
@@ -54,7 +62,6 @@ class UserController {
       }
       jwt.sign({ email }, config.secret, (err, token) => {
         emailExists.token = token;
-        emailExists.password = '';
         return res.json({
           status: 201,
           data: emailExists,
