@@ -30,9 +30,74 @@ describe('Users', function () {
     _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signup').send(user).end(function (err, res) {
       res.should.have.status(200);
       res.body.should.be.a('object');
+      res.body.should.have.property('data');
+      res.body.data.should.have.property('id');
+      res.body.data.should.have.property('email');
+      res.body.data.should.have.property('password');
+      res.body.data.should.have.property('firstName');
+      res.body.data.should.have.property('lastName');
+      res.body.data.should.have.property('type');
+      res.body.data.should.have.property('isAdmin');
       done();
     });
-  }); // Test to sign up user
+  }); // Test to check if a user exist
+
+  it('should check if user exists', function (done) {
+    var user = {
+      email: 'lawal.bello@yahoo.com',
+      firstName: 'Lawal',
+      lastName: 'Bello',
+      password: 'golden',
+      type: 'client',
+      isAdmin: 'false'
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signup').send(user).end(function (err, res) {
+      res.should.have.status(401);
+      res.body.should.be.a('object');
+      res.body.should.have.property('status');
+      res.body.should.have.property('data');
+      done();
+    });
+  }); // Test to check if user fields are passed
+
+  it('should check if user fields are passed', function (done) {
+    var user = {
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      type: 'client',
+      isAdmin: false
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signup').send(user).end(function (err, res) {
+      res.should.have.status(401);
+      res.body.should.be.a('object');
+      res.body.should.have.property('status');
+      res.body.should.have.property('data');
+      done();
+    });
+  }); // Test to check if correct email format is used
+
+  it('should check if correct email format is used', function (done) {
+    var user = {
+      email: 'lawaluuuu',
+      firstName: 'Lawal',
+      lastName: 'Bello',
+      password: 'golden',
+      type: 'client',
+      isAdmin: 'false'
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signup').send(user).end(function (err, res) {
+      res.should.have.status(401);
+      res.body.should.be.a('object');
+      res.body.should.have.property('status');
+      res.body.should.have.property('data');
+      done();
+    });
+  }); // Test to sign in user
 
   it('should sign in user', function (done) {
     var user = {
@@ -42,6 +107,19 @@ describe('Users', function () {
 
     _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
       res.should.have.status(200);
+      res.body.should.be.a('object');
+      done();
+    });
+  }); // Test to test for none existing emails during sign in
+
+  it('should test for none existing emails during sign in', function (done) {
+    var user = {
+      email: 'olooo.wale@gmail.com',
+      password: 'golden'
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
+      res.should.have.status(404);
       res.body.should.be.a('object');
       done();
     });
@@ -64,7 +142,7 @@ describe('Transactions', function () {
       createdOn: 'Mon Feb 18 2019 09:15:03',
       accountNumber: '0019898982',
       cashier: 2,
-      amount: 10000.00
+      amount: 10000.0
     };
 
     _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982/credit').set('Authorization', "Bearer ".concat(token)).send(transaction).end(function (err, res) {
@@ -79,7 +157,7 @@ describe('Transactions', function () {
       createdOn: 'Mon Feb 18 2019 09:15:03',
       accountNumber: '0019898982',
       cashier: 2,
-      amount: 10000.00
+      amount: 10000.0
     };
 
     _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982/debit').set('Authorization', "Bearer ".concat(token)).send(transaction).end(function (err, res) {
