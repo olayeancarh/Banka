@@ -25,7 +25,7 @@ const createUserTable = () => {
       lastName VARCHAR(120) NOT NULL,
       password VARCHAR(120) NOT NULL,
       type VARCHAR(120) NOT NULL,
-      isAdmin integer NOT NULL,
+      isAdmin boolean NOT NULL,
       createdOn TIMESTAMP NOT NULL,
       last_login TIMESTAMP
     )`;
@@ -103,7 +103,7 @@ const createTransactionTable = () => {
  * Drop UserTable
  */
 const dropUserTable = () => {
-  const queryText = 'DROP TABLE IF EXISTS Users returning *';
+  const queryText = 'DROP TABLE IF EXISTS users returning *';
   pool.query(queryText)
     .then((res) => {
       console.log(res);
