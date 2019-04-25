@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 const { Pool } = require('pg');
 
-const connectionString = 'postgres://gucbgfcy:cjy3nuYOfPBoEhS2omIS-QTrlc3ngBqx@isilo.db.elephantsql.com:5432/gucbgfcy';
+const connectionString = 'postgres://wrzrvclkxnmkrs:e2fdde48ebab7fcfeed46a60bc907c6b254bdd6d4da7b43ff25770572837389c@ec2-54-243-197-120.compute-1.amazonaws.com:5432/d1tn3c0l0she6u';
 
 const pool = new Pool({
   connectionString,
+  ssl: true,
 });
 
 // const pool = new Pool({
@@ -30,8 +31,8 @@ const createUserTable = () => {
       firstName VARCHAR(120) NOT NULL,
       lastName VARCHAR(120) NOT NULL,
       password VARCHAR(120) NOT NULL,
-      type VARCHAR(120) NOT NULL,
-      isAdmin boolean NOT NULL,
+      type VARCHAR(120) NULL,
+      isAdmin boolean NULL,
       createdOn TIMESTAMP NOT NULL,
       last_login TIMESTAMP
     )`;
@@ -109,7 +110,7 @@ const createTransactionTable = () => {
  * Drop UserTable
  */
 const dropUserTable = () => {
-  const queryText = 'DROP TABLE IF EXISTS users returning *';
+  const queryText = 'DROP TABLE IF EXISTS users cascade';
   pool.query(queryText)
     .then((res) => {
       console.log(res);
