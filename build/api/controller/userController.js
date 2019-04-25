@@ -21,6 +21,8 @@ var _user = _interopRequireDefault(require("../services/user.service"));
 
 var _config = _interopRequireDefault(require("../utilz/config"));
 
+var _helpers = _interopRequireDefault(require("../utilz/helpers"));
+
 /* eslint-disable no-console */
 
 /* eslint-disable consistent-return */
@@ -35,20 +37,14 @@ function () {
     key: "addAUser",
     value: function addAUser(req, res) {
       var newUser = req.body;
-
-      if ([newUser.email, newUser.firstName, newUser.lastName, newUser.password, newUser.type, newUser.isAdmin].includes('')) {
-        return res.status(401).json({
-          status: 401,
-          data: 'All fields are required'
-        });
-      }
-
-      if (!_emailValidator["default"].validate(newUser.email)) {
-        return res.status(401).json({
-          status: 401,
-          data: 'Invalid Email'
-        });
-      }
+      if (!_helpers["default"].userSignup(newUser)) return res.status(401).json({
+        status: 401,
+        data: 'Some fields are missing'
+      });
+      if (!_emailValidator["default"].validate(newUser.email)) return res.status(401).json({
+        status: 401,
+        data: 'Invalid email'
+      });
 
       _bcryptjs["default"].hash(newUser.password, _config["default"].saltRounds, function (err, hash) {
         newUser.password = hash;
@@ -63,9 +59,15 @@ function () {
             });
           }
 
-          return res.status(201).json({
-            status: 201,
-            data: user.rows[0]
+          _jsonwebtoken["default"].sign({
+            email: newUser.email
+          }, _config["default"].secret, function (_err, token) {
+            // eslint-disable-next-line no-param-reassign
+            user.rows[0].token = token;
+            return res.status(201).json({
+              status: 201,
+              data: user.rows[0]
+            });
           });
         });
       });
@@ -77,18 +79,16 @@ function () {
       var _req$body = req.body,
           email = _req$body.email,
           password = _req$body.password;
+      if (!_helpers["default"].userSignin(email, password)) return res.status(401).json({
+        status: 401,
+        data: 'Some fields are missing'
+      });
+      if (!_emailValidator["default"].validate(email)) return res.status(401).json({
+        status: 401,
+        data: 'Invalid email'
+      });
 
-      if (!_emailValidator["default"].validate(email) || [email, password].includes('')) {
-        var data = !_emailValidator["default"].validate(email) ? 'Invalid email' : 'Some fields are missing';
-        return res.status(401).json({
-          status: 401,
-          data: data
-        });
-      }
-
-      var loggedInUser = _user["default"].userLogIn(email);
-
-      loggedInUser.then(function (user) {
+      _user["default"].userLogIn(email).then(function (user) {
         if (!user.rows[0]) {
           return res.status(404).json({
             status: 404,

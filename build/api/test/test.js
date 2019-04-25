@@ -48,7 +48,7 @@ describe('Users', function () {
 
   it('should check if user exists', function (done) {
     var user = {
-      email: 'ahmed2ccc.musa@yahoo.com',
+      email: 'yinaj009@yahoo.com',
       firstName: 'Lawal',
       lastName: 'Bello',
       password: 'golden',
@@ -105,7 +105,7 @@ describe('Users', function () {
 
   it('should sign in user', function (done) {
     var user = {
-      email: 'ahmed2.musa@yahoo.com',
+      email: 'yinaj009@yahoo.com',
       password: 'golden'
     };
 
@@ -131,7 +131,7 @@ describe('Users', function () {
 
   it('should test for wrong passwords', function (done) {
     var user = {
-      email: 'ahmed2.musa@yahoo.com',
+      email: 'yinaj009@yahoo.com',
       password: 'goldenBoy1x'
     };
 
@@ -140,12 +140,25 @@ describe('Users', function () {
       res.body.should.be.a('object');
       done();
     });
-  }); // Test to test for wrong email format or empty fields - sign in
+  }); // Test to test for wrong email format - sign in
 
-  it('should test for wrong email format or empty fields', function (done) {
+  it('should test for wrong email format', function (done) {
     var user = {
       email: 'ahmed.muhoo.com',
-      password: 'goldenBoy1x'
+      password: 'golden'
+    };
+
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
+      res.should.have.status(401);
+      res.body.should.be.a('object');
+      done();
+    });
+  }); // Test to test for \empty fields - sign in
+
+  it('should test for  empty fields', function (done) {
+    var user = {
+      email: '',
+      password: ''
     };
 
     _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
