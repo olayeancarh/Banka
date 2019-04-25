@@ -13,7 +13,7 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-var _bcrypt = _interopRequireDefault(require("bcrypt"));
+var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
 var _emailValidator = _interopRequireDefault(require("email-validator"));
 
@@ -50,7 +50,7 @@ function () {
         });
       }
 
-      _bcrypt["default"].hash(newUser.password, _config["default"].saltRounds, function (err, hash) {
+      _bcryptjs["default"].hash(newUser.password, _config["default"].saltRounds, function (err, hash) {
         newUser.password = hash;
 
         var createdUser = _user["default"].addNewUser(newUser);
@@ -96,7 +96,7 @@ function () {
           });
         }
 
-        _bcrypt["default"].compare(password, user.rows[0].password).then(function (resp) {
+        _bcryptjs["default"].compare(password, user.rows[0].password).then(function (resp) {
           if (!resp) {
             return res.status(404).json({
               status: 404,
