@@ -1,12 +1,12 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _chai = _interopRequireDefault(require("chai"));
 
 var _chaiHttp = _interopRequireDefault(require("chai-http"));
 
 var _index = _interopRequireDefault(require("../../index"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable import/no-extraneous-dependencies */
 // Import the dependencies for testing
@@ -19,32 +19,32 @@ describe('Users', function () {
   // Test to sign up user
   it('should sign up user', function (done) {
     var user = {
-      email: 'ahmed.musa@yahoo.com',
+      email: 'ahmed006.musa@yahoo.com',
       firstName: 'Ahmed',
       lastName: 'Musa',
       password: 'golden',
       type: 'client',
-      isAdmin: 'false'
+      isAdmin: false
     };
 
     _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signup').send(user).end(function (err, res) {
-      res.should.have.status(200);
+      res.should.have.status(201);
       res.body.should.be.a('object');
       res.body.should.have.property('data');
       res.body.data.should.have.property('id');
       res.body.data.should.have.property('email');
       res.body.data.should.have.property('password');
-      res.body.data.should.have.property('firstName');
-      res.body.data.should.have.property('lastName');
+      res.body.data.should.have.property('firstname');
+      res.body.data.should.have.property('lastname');
       res.body.data.should.have.property('type');
-      res.body.data.should.have.property('isAdmin');
+      res.body.data.should.have.property('isadmin');
       done();
     });
-  }); // Test to check if a user exist
+  }); // Test to check if a user exist - sign up
 
   it('should check if user exists', function (done) {
     var user = {
-      email: 'lawal.bello@yahoo.com',
+      email: 'ahmed2.musa@yahoo.com',
       firstName: 'Lawal',
       lastName: 'Bello',
       password: 'golden',
@@ -59,7 +59,7 @@ describe('Users', function () {
       res.body.should.have.property('data');
       done();
     });
-  }); // Test to check if user fields are passed
+  }); // Test to check if user fields are passed - sign up
 
   it('should check if user fields are passed', function (done) {
     var user = {
@@ -78,7 +78,7 @@ describe('Users', function () {
       res.body.should.have.property('data');
       done();
     });
-  }); // Test to check if correct email format is used
+  }); // Test to check if correct email format is used - sign up
 
   it('should check if correct email format is used', function (done) {
     var user = {
@@ -101,12 +101,12 @@ describe('Users', function () {
 
   it('should sign in user', function (done) {
     var user = {
-      email: 'ola1.wale@gmail.com',
+      email: 'ahmed.musa@yahoo.com',
       password: 'golden'
     };
 
     _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
-      res.should.have.status(200);
+      res.should.have.status(201);
       res.body.should.be.a('object');
       done();
     });
@@ -114,7 +114,7 @@ describe('Users', function () {
 
   it('should test for none existing emails during sign in', function (done) {
     var user = {
-      email: 'olooo.wale@gmail.com',
+      email: 'oloooo.wale@gmail.com',
       password: 'golden'
     };
 
@@ -123,131 +123,189 @@ describe('Users', function () {
       res.body.should.be.a('object');
       done();
     });
-  });
-});
-describe('Transactions', function () {
-  var token;
-  before(function (done) {
-    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send({
-      email: 'ola1.wale@gmail.com',
-      password: 'golden'
-    }).end(function (err, res) {
-      token = res.body.data.token;
-      done();
-    });
-  }); // Test to credit a user account
+  }); // Test to test for wrong passwords
 
-  it('should credit a user account', function (done) {
-    var transaction = {
-      createdOn: 'Mon Feb 18 2019 09:15:03',
-      accountNumber: '0019898982',
-      cashier: 2,
-      amount: 10000.0
+  it('should test for wrong passwords', function (done) {
+    var user = {
+      email: 'ahmed.musa@yahoo.com',
+      password: 'goldenBoy1x'
     };
 
-    _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982/credit').set('Authorization', "Bearer ".concat(token)).send(transaction).end(function (err, res) {
-      res.should.have.status(200);
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
+      res.should.have.status(404);
       res.body.should.be.a('object');
       done();
     });
-  }); // Test to debit a user account
+  }); // Test to test for wrong email format or empty fields - sign in
 
-  it('should debit a user account', function (done) {
-    var transaction = {
-      createdOn: 'Mon Feb 18 2019 09:15:03',
-      accountNumber: '0019898982',
-      cashier: 2,
-      amount: 10000.0
+  it('should test for wrong email format or empty fields', function (done) {
+    var user = {
+      email: 'ahmed.muhoo.com',
+      password: 'goldenBoy1x'
     };
 
-    _chai["default"].request(_index["default"]).post('/api/v1/transactions/0019898982/debit').set('Authorization', "Bearer ".concat(token)).send(transaction).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      done();
-    });
-  }); // Test to fetch all transactions
-
-  it('should get all transaction', function (done) {
-    _chai["default"].request(_index["default"]).get('/api/v1/transactions').set('Authorization', "Bearer ".concat(token)).end(function (err, res) {
-      res.should.have.status(200);
+    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send(user).end(function (err, res) {
+      res.should.have.status(401);
       res.body.should.be.a('object');
       done();
     });
   });
-});
-describe('Accounts', function () {
-  var token;
-  before(function (done) {
-    _chai["default"].request(_index["default"]).post('/api/v1/users/auth/signin').send({
-      email: 'ola1.wale@gmail.com',
-      password: 'golden'
-    }).end(function (err, res) {
-      token = res.body.data.token;
-      done();
-    });
-  }); // Test to create an account
-
-  it('should create an account', function (done) {
-    var account = {
-      accountNumber: '0019898982',
-      createdOn: 'Mon Feb 18 2019 09:15:03',
-      owner: 1,
-      type: 'savings',
-      status: 'active',
-      balance: 46888.09
-    };
-
-    _chai["default"].request(_index["default"]).post('/api/v1/accounts').set('Authorization', "Bearer ".concat(token)).send(account).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      done();
-    });
-  }); // Test to update account
-
-  it('should update account', function (done) {
-    var accountNumber = '0019898982';
-    var account = {
-      accountNumber: '0019898982',
-      createdOn: 'Mon Feb 18 2019 09:15:03',
-      owner: 1,
-      type: 'savings',
-      status: 'active',
-      balance: 46888.09
-    };
-
-    _chai["default"].request(_index["default"]).put("/api/v1/accounts/".concat(accountNumber)).set('Authorization', "Bearer ".concat(token)).send(account).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object'); // res.body.should.have.property('message');
-
-      done();
-    });
-  }); // Test to delete account
-
-  it('should delete account', function (done) {
-    var accountNumber = '0019898982';
-
-    _chai["default"].request(_index["default"])["delete"]("/api/v1/accounts/".concat(accountNumber)).set('Authorization', "Bearer ".concat(token)).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object'); // res.body.should.have.property('message');
-
-      done();
-    });
-  }); // Test to fetch all accounts
-
-  it('should get all accounts', function (done) {
-    _chai["default"].request(_index["default"]).get('/api/v1/accounts').set('Authorization', "Bearer ".concat(token)).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      done();
-    });
-  }); // Test to fetch an account
-
-  it('should get an account', function (done) {
-    _chai["default"].request(_index["default"]).get('/api/v1/accounts/0019898982').set('Authorization', "Bearer ".concat(token)).end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.be.a('object');
-      done();
-    });
-  });
-});
+}); // describe('Transactions', () => {
+//   let token;
+//   before((done) => {
+//     chai
+//       .request(app)
+//       .post('/api/v1/users/auth/signin')
+//       .send({ email: 'ola1.wale@gmail.com', password: 'golden' })
+//       .end((err, res) => {
+//         ({ token } = res.body.data);
+//         done();
+//       });
+//   });
+//   // Test to credit a user account
+//   it('should credit a user account', (done) => {
+//     const transaction = {
+//       createdOn: 'Mon Feb 18 2019 09:15:03',
+//       accountNumber: '0019898982',
+//       cashier: 2,
+//       amount: 10000.0,
+//     };
+//     chai
+//       .request(app)
+//       .post('/api/v1/transactions/0019898982/credit')
+//       .set('Authorization', `Bearer ${token}`)
+//       .send(transaction)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         done();
+//       });
+//   });
+//   // Test to debit a user account
+//   it('should debit a user account', (done) => {
+//     const transaction = {
+//       createdOn: 'Mon Feb 18 2019 09:15:03',
+//       accountNumber: '0019898982',
+//       cashier: 2,
+//       amount: 10000.0,
+//     };
+//     chai
+//       .request(app)
+//       .post('/api/v1/transactions/0019898982/debit')
+//       .set('Authorization', `Bearer ${token}`)
+//       .send(transaction)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         done();
+//       });
+//   });
+//   // Test to fetch all transactions
+//   it('should get all transaction', (done) => {
+//     chai
+//       .request(app)
+//       .get('/api/v1/transactions')
+//       .set('Authorization', `Bearer ${token}`)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         done();
+//       });
+//   });
+// });
+// describe('Accounts', () => {
+//   let token;
+//   before((done) => {
+//     chai
+//       .request(app)
+//       .post('/api/v1/users/auth/signin')
+//       .send({ email: 'ola1.wale@gmail.com', password: 'golden' })
+//       .end((err, res) => {
+//         ({ token } = res.body.data);
+//         done();
+//       });
+//   });
+//   // Test to create an account
+//   it('should create an account', (done) => {
+//     const account = {
+//       accountNumber: '0019898982',
+//       createdOn: 'Mon Feb 18 2019 09:15:03',
+//       owner: 1,
+//       type: 'savings',
+//       status: 'active',
+//       balance: 46888.09,
+//     };
+//     chai
+//       .request(app)
+//       .post('/api/v1/accounts')
+//       .set('Authorization', `Bearer ${token}`)
+//       .send(account)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         done();
+//       });
+//   });
+//   // Test to update account
+//   it('should update account', (done) => {
+//     const accountNumber = '0019898982';
+//     const account = {
+//       accountNumber: '0019898982',
+//       createdOn: 'Mon Feb 18 2019 09:15:03',
+//       owner: 1,
+//       type: 'savings',
+//       status: 'active',
+//       balance: 46888.09,
+//     };
+//     chai
+//       .request(app)
+//       .put(`/api/v1/accounts/${accountNumber}`)
+//       .set('Authorization', `Bearer ${token}`)
+//       .send(account)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         // res.body.should.have.property('message');
+//         done();
+//       });
+//   });
+//   // Test to delete account
+//   it('should delete account', (done) => {
+//     const accountNumber = '0019898982';
+//     chai
+//       .request(app)
+//       .delete(`/api/v1/accounts/${accountNumber}`)
+//       .set('Authorization', `Bearer ${token}`)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         // res.body.should.have.property('message');
+//         done();
+//       });
+//   });
+//   // Test to fetch all accounts
+//   it('should get all accounts', (done) => {
+//     chai
+//       .request(app)
+//       .get('/api/v1/accounts')
+//       .set('Authorization', `Bearer ${token}`)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         done();
+//       });
+//   });
+//   // Test to fetch an account
+//   it('should get an account', (done) => {
+//     chai
+//       .request(app)
+//       .get('/api/v1/accounts/0019898982')
+//       .set('Authorization', `Bearer ${token}`)
+//       .end((err, res) => {
+//         res.should.have.status(200);
+//         res.body.should.be.a('object');
+//         done();
+//       });
+//   });
+// });
 //# sourceMappingURL=test.js.map

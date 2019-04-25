@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -14,8 +16,6 @@ var _accountController = _interopRequireDefault(require("../controller/accountCo
 var _transactionController = _interopRequireDefault(require("../controller/transactionController"));
 
 var _middleware = _interopRequireDefault(require("../utilz/middleware"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var router = (0, _express.Router)();
 var checkToken = _middleware["default"].checkToken; // ================= USER AUTHENTICATION ======================

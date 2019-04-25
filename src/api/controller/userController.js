@@ -38,11 +38,10 @@ class UserController {
     const {
       email, password,
     } = req.body;
-    const validMail = validator.validate(email);
-    if ([email, password].includes('') || !validMail) {
-      const data = !validMail ? 'Invalid email' : 'Some values are mising';
-      return res.status(404).json({
-        status: 404,
+    if (!validator.validate(email) || [email, password].includes('')) {
+      const data = !validator.validate(email) ? 'Invalid email' : 'Some fields are missing';
+      return res.status(401).json({
+        status: 401,
         data,
       });
     }
@@ -56,7 +55,7 @@ class UserController {
       }
       bcrypt.compare(password, user.rows[0].password).then((resp) => {
         if (!resp) {
-          return res.json({
+          return res.status(404).json({
             status: 404,
             data: 'Login failed',
           });
@@ -64,7 +63,7 @@ class UserController {
         jwt.sign({ email }, config.secret, (err, token) => {
           // eslint-disable-next-line no-param-reassign
           user.rows[0].token = token;
-          return res.json({
+          return res.status(201).json({
             status: 201,
             data: user.rows[0],
           });

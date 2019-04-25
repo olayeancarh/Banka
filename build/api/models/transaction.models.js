@@ -1,15 +1,16 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var Transaction = function Transaction(id, createdOn, type, accountNumber, cashier, amount, oldBalance, newBalance) {
-  _classCallCheck(this, Transaction);
-
+  (0, _classCallCheck2["default"])(this, Transaction);
   this.id = id;
   this.createdOn = createdOn;
   this.type = type;
