@@ -1,13 +1,19 @@
 /* eslint-disable no-console */
 const { Pool } = require('pg');
 
+const connectionString = 'postgres://gucbgfcy:cjy3nuYOfPBoEhS2omIS-QTrlc3ngBqx@isilo.db.elephantsql.com:5432/gucbgfcy';
+
 const pool = new Pool({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'banka',
-  password: 'admins',
-  port: 5432,
+  connectionString,
 });
+
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: '127.0.0.1',
+//   database: 'banka',
+//   password: 'admins',
+//   port: 5432,
+// });
 
 pool.on('connect', () => {
   console.log('connected to the db');

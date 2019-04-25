@@ -1,13 +1,7 @@
 /* eslint-disable no-console */
-import { Pool } from 'pg';
 import uuidv4 from 'uuid/v4';
 import moment from 'moment';
-
-const connectionString = 'postgresql://postgres:admins@127.0.0.1:5432/banka';
-
-const pool = new Pool({
-  connectionString,
-});
+import pool from '../db/db';
 
 const UserService = {
   async addNewUser(user) {

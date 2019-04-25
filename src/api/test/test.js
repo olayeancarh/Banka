@@ -2,6 +2,7 @@
 // Import the dependencies for testing
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import randMail from 'random-email';
 
 import app from '../../index';
 
@@ -13,7 +14,7 @@ describe('Users', () => {
   // Test to sign up user
   it('should sign up user', (done) => {
     const user = {
-      email: 'ahmed006.musa@yahoo.com',
+      email: randMail({ domain: 'banka.com' }),
       firstName: 'Ahmed',
       lastName: 'Musa',
       password: 'golden',
@@ -42,7 +43,7 @@ describe('Users', () => {
   // Test to check if a user exist - sign up
   it('should check if user exists', (done) => {
     const user = {
-      email: 'ahmed2.musa@yahoo.com',
+      email: 'ahmed2ccc.musa@yahoo.com',
       firstName: 'Lawal',
       lastName: 'Bello',
       password: 'golden',
@@ -111,7 +112,7 @@ describe('Users', () => {
   // Test to sign in user
   it('should sign in user', (done) => {
     const user = {
-      email: 'ahmed.musa@yahoo.com',
+      email: 'ahmed2.musa@yahoo.com',
       password: 'golden',
     };
     chai
@@ -145,7 +146,7 @@ describe('Users', () => {
   // Test to test for wrong passwords
   it('should test for wrong passwords', (done) => {
     const user = {
-      email: 'ahmed.musa@yahoo.com',
+      email: 'ahmed2.musa@yahoo.com',
       password: 'goldenBoy1x',
     };
     chai

@@ -6,6 +6,8 @@ var _chai = _interopRequireDefault(require("chai"));
 
 var _chaiHttp = _interopRequireDefault(require("chai-http"));
 
+var _randomEmail = _interopRequireDefault(require("random-email"));
+
 var _index = _interopRequireDefault(require("../../index"));
 
 /* eslint-disable import/no-extraneous-dependencies */
@@ -19,7 +21,9 @@ describe('Users', function () {
   // Test to sign up user
   it('should sign up user', function (done) {
     var user = {
-      email: 'ahmed006.musa@yahoo.com',
+      email: (0, _randomEmail["default"])({
+        domain: 'banka.com'
+      }),
       firstName: 'Ahmed',
       lastName: 'Musa',
       password: 'golden',
@@ -44,7 +48,7 @@ describe('Users', function () {
 
   it('should check if user exists', function (done) {
     var user = {
-      email: 'ahmed2.musa@yahoo.com',
+      email: 'ahmed2ccc.musa@yahoo.com',
       firstName: 'Lawal',
       lastName: 'Bello',
       password: 'golden',
@@ -101,7 +105,7 @@ describe('Users', function () {
 
   it('should sign in user', function (done) {
     var user = {
-      email: 'ahmed.musa@yahoo.com',
+      email: 'ahmed2.musa@yahoo.com',
       password: 'golden'
     };
 
@@ -127,7 +131,7 @@ describe('Users', function () {
 
   it('should test for wrong passwords', function (done) {
     var user = {
-      email: 'ahmed.musa@yahoo.com',
+      email: 'ahmed2.musa@yahoo.com',
       password: 'goldenBoy1x'
     };
 

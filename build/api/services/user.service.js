@@ -11,17 +11,13 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _pg = require("pg");
-
 var _v = _interopRequireDefault(require("uuid/v4"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
+var _db = _interopRequireDefault(require("../db/db"));
+
 /* eslint-disable no-console */
-var connectionString = 'postgresql://postgres:admins@127.0.0.1:5432/banka';
-var pool = new _pg.Pool({
-  connectionString: connectionString
-});
 var UserService = {
   addNewUser: function () {
     var _addNewUser = (0, _asyncToGenerator2["default"])(
@@ -33,7 +29,7 @@ var UserService = {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return pool.connect();
+              return _db["default"].connect();
 
             case 2:
               client = _context.sent;
@@ -81,7 +77,7 @@ var UserService = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return pool.connect();
+              return _db["default"].connect();
 
             case 2:
               client = _context2.sent;
