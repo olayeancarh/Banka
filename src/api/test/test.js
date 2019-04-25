@@ -43,7 +43,7 @@ describe('Users', () => {
   // Test to check if a user exist - sign up
   it('should check if user exists', (done) => {
     const user = {
-      email: 'ahmed2ccc.musa@yahoo.com',
+      email: 'yinaj009@yahoo.com',
       firstName: 'Lawal',
       lastName: 'Bello',
       password: 'golden',
@@ -112,7 +112,7 @@ describe('Users', () => {
   // Test to sign in user
   it('should sign in user', (done) => {
     const user = {
-      email: 'ahmed2.musa@yahoo.com',
+      email: 'yinaj009@yahoo.com',
       password: 'golden',
     };
     chai
@@ -146,7 +146,7 @@ describe('Users', () => {
   // Test to test for wrong passwords
   it('should test for wrong passwords', (done) => {
     const user = {
-      email: 'ahmed2.musa@yahoo.com',
+      email: 'yinaj009@yahoo.com',
       password: 'goldenBoy1x',
     };
     chai
@@ -160,11 +160,28 @@ describe('Users', () => {
       });
   });
 
-  // Test to test for wrong email format or empty fields - sign in
-  it('should test for wrong email format or empty fields', (done) => {
+  // Test to test for wrong email format - sign in
+  it('should test for wrong email format', (done) => {
     const user = {
       email: 'ahmed.muhoo.com',
-      password: 'goldenBoy1x',
+      password: 'golden',
+    };
+    chai
+      .request(app)
+      .post('/api/v1/users/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  // Test to test for \empty fields - sign in
+  it('should test for  empty fields', (done) => {
+    const user = {
+      email: '',
+      password: '',
     };
     chai
       .request(app)
