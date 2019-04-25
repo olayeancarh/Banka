@@ -1,13 +1,19 @@
 /* eslint-disable no-console */
 const { Pool } = require('pg');
 
+const connectionString = 'postgres://gucbgfcy:cjy3nuYOfPBoEhS2omIS-QTrlc3ngBqx@isilo.db.elephantsql.com:5432/gucbgfcy';
+
 const pool = new Pool({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'banka',
-  password: 'admins',
-  port: 5432,
+  connectionString,
 });
+
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: '127.0.0.1',
+//   database: 'banka',
+//   password: 'admins',
+//   port: 5432,
+// });
 
 pool.on('connect', () => {
   console.log('connected to the db');
@@ -25,7 +31,7 @@ const createUserTable = () => {
       lastName VARCHAR(120) NOT NULL,
       password VARCHAR(120) NOT NULL,
       type VARCHAR(120) NOT NULL,
-      isAdmin integer NOT NULL,
+      isAdmin boolean NOT NULL,
       createdOn TIMESTAMP NOT NULL,
       last_login TIMESTAMP
     )`;
@@ -103,7 +109,7 @@ const createTransactionTable = () => {
  * Drop UserTable
  */
 const dropUserTable = () => {
-  const queryText = 'DROP TABLE IF EXISTS Users returning *';
+  const queryText = 'DROP TABLE IF EXISTS users returning *';
   pool.query(queryText)
     .then((res) => {
       console.log(res);

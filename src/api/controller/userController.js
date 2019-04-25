@@ -1,26 +1,18 @@
+/* eslint-disable no-console */
 /* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import validator from 'email-validator';
 import UserService from '../services/user.service';
-import dummyData from '../utilz/dummyData';
 import config from '../utilz/config';
 
 class UserController {
   static addAUser(req, res) {
     const newUser = req.body;
-    const emailExists = dummyData.users.find(users => users.email === newUser.email);
-    const saltRounds = 10;
     if ([newUser.email, newUser.firstName, newUser.lastName, newUser.password, newUser.type, newUser.isAdmin].includes('')) {
       return res.status(401).json({
         status: 401,
         data: 'All fields are required',
-      });
-    }
-    if (emailExists) {
-      return res.status(401).json({
-        status: 401,
-        data: 'This email is associated with a Banka account',
       });
     }
     if (!validator.validate(newUser.email)) {
@@ -29,13 +21,14 @@ class UserController {
         data: 'Invalid Email',
       });
     }
-    bcrypt.hash(newUser.password, saltRounds, (err, hash) => {
+    bcrypt.hash(newUser.password, config.saltRounds, (err, hash) => {
       newUser.password = hash;
       const createdUser = UserService.addNewUser(newUser);
-      // createdUser.password = '';
-      return res.json({
-        status: 201,
-        data: createdUser,
+      createdUser.then((user) => {
+        if (user.routine === '_bt_check_unique') {
+          return res.status(401).json({ status: 401, data: 'Email already exists' });
+        }
+        return res.status(201).json({ status: 201, data: user.rows[0] });
       });
     });
   }
@@ -45,26 +38,35 @@ class UserController {
     const {
       email, password,
     } = req.body;
-    const emailExists = dummyData.users.find(user => user.email === email);
-    if (!emailExists || !validator.validate(email)) {
-      const data = emailExists ? 'Invalid email' : 'Authentication failed';
-      return res.status(404).json({
-        status: 404,
+    if (!validator.validate(email) || [email, password].includes('')) {
+      const data = !validator.validate(email) ? 'Invalid email' : 'Some fields are missing';
+      return res.status(401).json({
+        status: 401,
         data,
       });
     }
-    bcrypt.compare(password, emailExists.password).then((resp) => {
-      if (!resp) {
-        return res.json({
+    const loggedInUser = UserService.userLogIn(email);
+    loggedInUser.then((user) => {
+      if (!user.rows[0]) {
+        return res.status(404).json({
           status: 404,
-          data: 'Login failed',
+          data: 'Authenticaation failed',
         });
       }
-      jwt.sign({ email }, config.secret, (err, token) => {
-        emailExists.token = token;
-        return res.json({
-          status: 201,
-          data: emailExists,
+      bcrypt.compare(password, user.rows[0].password).then((resp) => {
+        if (!resp) {
+          return res.status(404).json({
+            status: 404,
+            data: 'Login failed',
+          });
+        }
+        jwt.sign({ email }, config.secret, (err, token) => {
+          // eslint-disable-next-line no-param-reassign
+          user.rows[0].token = token;
+          return res.status(201).json({
+            status: 201,
+            data: user.rows[0],
+          });
         });
       });
     });

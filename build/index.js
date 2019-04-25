@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -14,8 +16,6 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 var _morgan = _interopRequireDefault(require("morgan"));
 
 var _index = _interopRequireDefault(require("./api/routes/index"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable no-console */
 // Routes

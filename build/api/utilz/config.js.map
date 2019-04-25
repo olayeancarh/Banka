@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/api/utilz/config.js"],"names":["secret"],"mappings":";;;;;;eAAe;AACbA,EAAAA,MAAM,EAAE;AADK,C","sourcesContent":["export default {\r\n  secret: 'dworldisfulloffuckingdevelopers',\r\n};\r\n"],"file":"config.js"}
+{"version":3,"sources":["../../../src/api/utilz/config.js"],"names":["secret","saltRounds"],"mappings":";;;;;;eAAe;AACbA,EAAAA,MAAM,EAAE,iCADK;AAEbC,EAAAA,UAAU,EAAE;AAFC,C","sourcesContent":["export default {\r\n  secret: 'dworldisfulloffuckingdevelopers',\r\n  saltRounds: 10,\r\n};\r\n"],"file":"config.js"}
