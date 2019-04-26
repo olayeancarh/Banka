@@ -19,7 +19,11 @@ class UserController {
         if (user.routine === '_bt_check_unique') {
           return res.status(401).json({ status: 401, data: 'Email already exists' });
         }
-        return res.status(201).json({ status: 201, data: user.rows[0] });
+        jwt.sign({ email: newUser.email }, config.secret, (_err, token) => {
+          // eslint-disable-next-line no-param-reassign
+          user.rows[0].token = token;
+          return res.status(201).json({ status: 201, data: user.rows[0] });
+        });
       });
     });
   }

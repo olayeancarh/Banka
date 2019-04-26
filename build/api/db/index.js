@@ -4,9 +4,10 @@
 var _require = require('pg'),
     Pool = _require.Pool;
 
-var connectionString = 'postgres://gucbgfcy:cjy3nuYOfPBoEhS2omIS-QTrlc3ngBqx@isilo.db.elephantsql.com:5432/gucbgfcy';
+var connectionString = 'postgres://wrzrvclkxnmkrs:e2fdde48ebab7fcfeed46a60bc907c6b254bdd6d4da7b43ff25770572837389c@ec2-54-243-197-120.compute-1.amazonaws.com:5432/d1tn3c0l0she6u';
 var pool = new Pool({
-  connectionString: connectionString
+  connectionString: connectionString,
+  ssl: true
 }); // const pool = new Pool({
 //   user: 'postgres',
 //   host: '127.0.0.1',
@@ -23,7 +24,7 @@ pool.on('connect', function () {
  */
 
 var createUserTable = function createUserTable() {
-  var queryText = "CREATE TABLE IF NOT EXISTS\n    Users(\n      id UUID PRIMARY KEY,\n      email VARCHAR(120) UNIQUE NOT NULL,\n      firstName VARCHAR(120) NOT NULL,\n      lastName VARCHAR(120) NOT NULL,\n      password VARCHAR(120) NOT NULL,\n      type VARCHAR(120) NOT NULL,\n      isAdmin boolean NOT NULL,\n      createdOn TIMESTAMP NOT NULL,\n      last_login TIMESTAMP\n    )";
+  var queryText = "CREATE TABLE IF NOT EXISTS\n    Users(\n      id UUID PRIMARY KEY,\n      email VARCHAR(120) UNIQUE NOT NULL,\n      firstName VARCHAR(120) NOT NULL,\n      lastName VARCHAR(120) NOT NULL,\n      password VARCHAR(120) NOT NULL,\n      type VARCHAR(120) NULL,\n      isAdmin boolean NULL,\n      createdOn TIMESTAMP NOT NULL,\n      last_login TIMESTAMP\n    )";
   pool.query(queryText).then(function (res) {
     console.log(res);
     pool.end();
@@ -68,7 +69,7 @@ var createTransactionTable = function createTransactionTable() {
 
 
 var dropUserTable = function dropUserTable() {
-  var queryText = 'DROP TABLE IF EXISTS users returning *';
+  var queryText = 'DROP TABLE IF EXISTS users cascade';
   pool.query(queryText).then(function (res) {
     console.log(res);
     pool.end();

@@ -11,13 +11,6 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _bcrypt = _interopRequireDefault(require("bcrypt"));
-
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
-
-var _config = _interopRequireDefault(require("./config"));
-
-// src/usingDB/controllers/Helper.js
 var Helper =
 /*#__PURE__*/
 function () {
@@ -26,42 +19,29 @@ function () {
   }
 
   (0, _createClass2["default"])(Helper, null, [{
-    key: "hashPassword",
+    key: "userSignup",
 
     /**
-     * Hash Password Method
-     * @param {string} password
-     * @returns {string} returns hashed password
+     * Validate empty params for sign up
+     * @param {object} user
+     * @returns {Boolean} return true or false
      */
-    value: function hashPassword(password) {
-      return _bcrypt["default"].hashSync(password, _bcrypt["default"].genSaltSync(8));
+    value: function userSignup(user) {
+      if (!user.email || !user.password || !user.firstName || !user.lastName) return false;
+      return true;
     }
     /**
-     * comparePassword
-     * @param {string} hashPassword
+     * Validate empty params for sign up
+     * @param {string} email
      * @param {string} password
-     * @returns {Boolean} return True or False
+     * @returns {Boolean} return true or false
      */
 
   }, {
-    key: "comparePassword",
-    value: function comparePassword(hashPassword, password) {
-      return _bcrypt["default"].compareSync(password, hashPassword);
-    }
-    /**
-     * Gnerate Token
-     * @param {string} id
-     * @returns {string} token
-     */
-
-  }, {
-    key: "generateToken",
-    value: function generateToken(id) {
-      return _jsonwebtoken["default"].sign({
-        id: id
-      }, _config["default"].secret, {
-        expiresIn: '7d'
-      });
+    key: "userSignin",
+    value: function userSignin(email, password) {
+      if (!email || !password) return false;
+      return true;
     }
   }]);
   return Helper;
