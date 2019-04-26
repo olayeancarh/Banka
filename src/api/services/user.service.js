@@ -42,6 +42,18 @@ const UserService = {
       client.end();
     }
   },
+  async getAUser(userId) {
+    const client = await pool.connect();
+    const createQuery = 'SELECT * FROM users WHERE id = $1';
+    try {
+      const getUser = await client.query(createQuery, [userId]);
+      return getUser;
+    } catch (err) {
+      return err;
+    } finally {
+      client.end();
+    }
+  },
 };
 
 export default UserService;
