@@ -194,3 +194,78 @@ describe('Users', () => {
       });
   });
 });
+
+describe('Accounts', () => {
+  let token;
+
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/users/auth/signin')
+      .send({ email: 'yinaj009@yahoo.com', password: 'golden' })
+      .end((err, res) => {
+        ({ token } = res.body.data);
+        done();
+      });
+  });
+  // Test to create an account
+  it('should create an account', (done) => {
+    const account = {
+      accountNumber: '0799898982',
+      owner: '9dbf9ac0-9bf9-4a0c-933a-33823bd9cb0f',
+      type: 'savings',
+      status: 'active',
+      balance: 46888.09,
+    };
+    chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .set('Authorization', `Bearer ${token}`)
+      .send(account)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  // Test to for existing missing fields
+  it('should test to for missing fields', (done) => {
+    const account = {
+      owner: '9dbf9ac0-9bf9-4a0c-933a-33823bd9cb0f',
+      type: '',
+      status: '',
+      balance: 46888.09,
+    };
+    chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .set('Authorization', `Bearer ${token}`)
+      .send(account)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  // Test to check if account owner exist
+  it('should test if account owner exist', (done) => {
+    const account = {
+      owner: '9dbf8ac0-9bf9-4a0c-933a-33823bd9cb0f',
+      type: 'savings',
+      status: 'active',
+      balance: 46888.09,
+    };
+    chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .set('Authorization', `Bearer ${token}`)
+      .send(account)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+});
