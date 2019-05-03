@@ -81,7 +81,7 @@ Application was deployed to Heroku. Use public URL [https://adcbanka.herokuapp.c
   ```shell
   $ npm start
   ```
-- Use `http://localhost:5000` as base url for endpoints
+- Use `https://adcbanka.herokuapp.com` as base url for endpoints
 
 #### Endpoints
 
